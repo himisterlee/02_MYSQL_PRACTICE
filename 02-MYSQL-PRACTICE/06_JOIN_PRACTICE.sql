@@ -34,3 +34,13 @@
         a.emp_name;
 
 -- EMPLOYEE 테이블을 자기 자신과 조인하여, 각 직원과 그 직원의 관리자의 이름을 조회하시오. (자기 자신을 조인하는 SELF JOIN을 사용)
+
+    select
+        a.emp_name 직원이름,
+        b.emp_name 관리자이름
+    from
+        employee a
+    join employee b
+    on a.emp_id = b.manager_id;
+
+
