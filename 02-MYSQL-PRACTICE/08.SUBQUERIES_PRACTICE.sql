@@ -33,6 +33,19 @@
                     dept_title = '해외영업1부'
                 );
 
+
+        select
+            a.emp_name 이름,
+            b.job_name 직급,
+            a.salary 급여
+        from
+            employee a,
+            job b
+        where
+            a.job_code = b.job_code
+        group by
+            b.job_name;
+
 -- EMPLOYEE 테이블에서 모든 직원의 평균 급여보다 높은 급여를 받는 직원의 이름과 급여를 조회하시오.
 
 
@@ -42,15 +55,62 @@
         from
             employee
         where
-            avg(salary) <= all(
+            salary > (
                 select
-                    salary
+                    avg(salary)
                 from
                     employee
             );
 
 
+        /* select
+            avg(salary)
+        from
+            employee;
+
+        select
+            emp_name,
+            salary
+        from
+            employee
+        where
+            salary > (select avg(salary)
+                      from employee) */
+
+
 -- EMPLOYEE 테이블에서 각 부서의 평균 급여보다 높은 급여를 받는 직원의 이름, 부서명, 급여를 조회하시오.
+
+        select
+            dept_code,
+            avg(salary)
+        from
+            employee
+        group by
+            dept_code;
+
+        select
+            emp_name,
+            dept_code,
+            salary
+        from
+            employee
+        where
+            salary > (select avg(salary)
+                      from employee);
+
+
+        select
+            emp_name,
+            dept_code,
+            salary
+        from
+            employee
+        where
+            salary > (select avg(salary)
+                      from employee
+                      group by dept_code);
+
+
 
 
 -- 상관서브쿼리문제
